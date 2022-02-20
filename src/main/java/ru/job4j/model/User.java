@@ -1,27 +1,30 @@
 package ru.job4j.model;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
-@Table(name = "engines")
-public class Engine {
+@Table(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(nullable = false, unique = true)
-    private String name;
     @Column(nullable = false)
-    private int power;
+    private String name;
+    @Column(nullable = false, unique = true)
+    private String email;
+    @Column(nullable = false)
+    private String password;
 
-    public Engine() {
+    public User() {
     }
 
-    public static Engine of(String name, int power) {
-        Engine engine = new Engine();
-        engine.setName(name);
-        engine.setPower(power);
-        return engine;
+    public static User of(String name, String email, String password) {
+        User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        user.setPassword(password);
+        return user;
     }
 
     public int getId() {
@@ -40,12 +43,20 @@ public class Engine {
         this.name = name;
     }
 
-    public int getPower() {
-        return power;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPower(int power) {
-        this.power = power;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -56,8 +67,8 @@ public class Engine {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Engine engine = (Engine) o;
-        return id == engine.id;
+        User user = (User) o;
+        return id == user.id;
     }
 
     @Override
@@ -67,10 +78,11 @@ public class Engine {
 
     @Override
     public String toString() {
-        return "Engine{"
+        return "User{"
                 + "id=" + id
                 + ", name='" + name + '\''
-                + ", power=" + power
+                + ", email='" + email + '\''
+                + ", password='" + password + '\''
                 + '}';
     }
 }

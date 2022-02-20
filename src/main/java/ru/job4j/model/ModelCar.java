@@ -4,24 +4,21 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "engines")
-public class Engine {
+@Table(name = "models")
+public class ModelCar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(nullable = false, unique = true)
-    private String name;
     @Column(nullable = false)
-    private int power;
+    private String name;
 
-    public Engine() {
+    public ModelCar() {
     }
 
-    public static Engine of(String name, int power) {
-        Engine engine = new Engine();
-        engine.setName(name);
-        engine.setPower(power);
-        return engine;
+    public static ModelCar of(String name) {
+        ModelCar modelCar = new ModelCar();
+        modelCar.setName(name);
+        return modelCar;
     }
 
     public int getId() {
@@ -40,14 +37,6 @@ public class Engine {
         this.name = name;
     }
 
-    public int getPower() {
-        return power;
-    }
-
-    public void setPower(int power) {
-        this.power = power;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -56,8 +45,8 @@ public class Engine {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Engine engine = (Engine) o;
-        return id == engine.id;
+        ModelCar modelCar = (ModelCar) o;
+        return id == modelCar.id;
     }
 
     @Override
@@ -67,10 +56,9 @@ public class Engine {
 
     @Override
     public String toString() {
-        return "Engine{"
+        return "ModelCar{"
                 + "id=" + id
                 + ", name='" + name + '\''
-                + ", power=" + power
                 + '}';
     }
 }

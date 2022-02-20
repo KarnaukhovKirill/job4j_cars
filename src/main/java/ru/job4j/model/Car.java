@@ -1,6 +1,7 @@
 package ru.job4j.model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -9,46 +10,61 @@ import java.util.Set;
 @Table(name = "cars")
 public class Car {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String name;
-    @ManyToOne
-    @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
+    @Column(unique = true, nullable = false, updatable = false)
+    private String vin;
+    @Temporal(value = TemporalType.DATE)
+    private Date production;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"), nullable = false)
     private Engine engine;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "dobyCar_id", foreignKey = @ForeignKey(name = "BODYCAR_ID_FK"), nullable = false)
+    private BodyCar bodyCar;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "brand_id", foreignKey = @ForeignKey(name = "BRAND_ID_FK"), nullable = false)
+    private Brand brand;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "modelCar_id", foreignKey = @ForeignKey(name = "MODELCAR_ID_FK"), nullable = false)
+    private ModelCar modelCar;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "history_owner", joinColumns = {
-            @JoinColumn(name = "driver_id", nullable = false, updatable = false)},
+            @JoinColumn(name = "car_vin", nullable = false, updatable = false)},
             inverseJoinColumns = {
-            @JoinColumn(name = "car_id", nullable = false, updatable = false)})
-    private Set<Driver> drivers = new HashSet<>();
+            @JoinColumn(name = "user_id", nullable = false, updatable = false)})
+    private Set<User> users = new HashSet<>();
 
     public Car() {
     }
 
-    public static Car of(String name) {
+    public static Car of(String vin, Date date, Engine engine, BodyCar bodyCar, Brand brand, ModelCar modelCar) {
         Car car = new Car();
-        car.setName(name);
+        car.setVin(vin);
+        car.setProduction(date);
+        car.setEngine(engine);
+        car.setBodyCar(bodyCar);
+        car.setBrand(brand);
+        car.setModelCar(modelCar);
         return car;
     }
 
-    public void addDriver(Driver driver) {
-        this.getDrivers().add(driver);
+    public void addDriver(User user) {
+        this.getUsers().add(user);
     }
 
-    public int getId() {
-        return id;
+    public String getVin() {
+        return vin;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setVin(String vin) {
+        this.vin = vin;
     }
 
-    public String getName() {
-        return name;
+    public Date getProduction() {
+        return production;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProduction(Date production) {
+        this.production = production;
     }
 
     public Engine getEngine() {
@@ -59,12 +75,36 @@ public class Car {
         this.engine = engine;
     }
 
-    public Set<Driver> getDrivers() {
-        return drivers;
+    public BodyCar getBodyCar() {
+        return bodyCar;
     }
 
-    public void setDrivers(Set<Driver> drivers) {
-        this.drivers = drivers;
+    public void setBodyCar(BodyCar bodyCar) {
+        this.bodyCar = bodyCar;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public ModelCar getModelCar() {
+        return modelCar;
+    }
+
+    public void setModelCar(ModelCar modelCar) {
+        this.modelCar = modelCar;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     @Override
@@ -76,21 +116,23 @@ public class Car {
             return false;
         }
         Car car = (Car) o;
-        return id == car.id;
+        return Objects.equals(vin, car.vin);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(vin);
     }
 
     @Override
     public String toString() {
         return "Car{"
-                + "id=" + id
-                + ", name='" + name + '\''
+                + "vin='" + vin + '\''
                 + ", engine=" + engine
-                + ", drivers=" + drivers
+                + ", bodyCar=" + bodyCar
+                + ", brand=" + brand
+                + ", modelCar=" + modelCar
+                + ", users=" + users
                 + '}';
     }
 }
