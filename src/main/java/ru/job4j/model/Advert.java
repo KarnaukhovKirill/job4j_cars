@@ -16,7 +16,7 @@ public class Advert {
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "USER_ID_FK"), nullable = false, updatable = false)
     private User user;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "car_id", foreignKey = @ForeignKey(name = "CAR_ID_FK"), nullable = false, updatable = false)
+    @JoinColumn(name = "car_vin", foreignKey = @ForeignKey(name = "CAR_VIN_FK"), nullable = false, updatable = false)
     private Car car;
     private String description;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

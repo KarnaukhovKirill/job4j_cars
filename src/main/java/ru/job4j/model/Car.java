@@ -128,6 +128,7 @@ public class Car {
     public String toString() {
         return "Car{"
                 + "vin='" + vin + '\''
+                + ", production=" + production.getYear()
                 + ", engine=" + engine
                 + ", bodyCar=" + bodyCar
                 + ", brand=" + brand
