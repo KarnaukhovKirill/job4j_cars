@@ -1,7 +1,6 @@
 package ru.job4j.model;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -10,10 +9,11 @@ import java.util.Set;
 @Table(name = "cars")
 public class Car {
     @Id
-    @Column(unique = true, nullable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String production;
+    @Column(unique = true, nullable = false, length = 17)
     private String vin;
-    @Temporal(value = TemporalType.DATE)
-    private Date production;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"), nullable = false)
     private Engine engine;
@@ -28,7 +28,7 @@ public class Car {
     private ModelCar modelCar;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "history_owner", joinColumns = {
-            @JoinColumn(name = "car_vin", nullable = false, updatable = false)},
+            @JoinColumn(name = "car_id", nullable = false, updatable = false)},
             inverseJoinColumns = {
             @JoinColumn(name = "user_id", nullable = false, updatable = false)})
     private Set<User> users = new HashSet<>();
@@ -36,7 +36,7 @@ public class Car {
     public Car() {
     }
 
-    public static Car of(String vin, Date date, Engine engine, BodyCar bodyCar, Brand brand, ModelCar modelCar) {
+    public static Car of(String vin, String date, Engine engine, BodyCar bodyCar, Brand brand, ModelCar modelCar) {
         Car car = new Car();
         car.setVin(vin);
         car.setProduction(date);
@@ -47,8 +47,20 @@ public class Car {
         return car;
     }
 
-    public void addDriver(User user) {
+    public void addUser(User user) {
         this.getUsers().add(user);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getProduction() {
+        return production;
+    }
+
+    public void setProduction(String production) {
+        this.production = production;
     }
 
     public String getVin() {
@@ -57,14 +69,6 @@ public class Car {
 
     public void setVin(String vin) {
         this.vin = vin;
-    }
-
-    public Date getProduction() {
-        return production;
-    }
-
-    public void setProduction(Date production) {
-        this.production = production;
     }
 
     public Engine getEngine() {
@@ -116,19 +120,19 @@ public class Car {
             return false;
         }
         Car car = (Car) o;
-        return Objects.equals(vin, car.vin);
+        return Objects.equals(id, car.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(vin);
+        return Objects.hash(id);
     }
 
     @Override
     public String toString() {
         return "Car{"
-                + "vin='" + vin + '\''
-                + ", production=" + production.getYear()
+                + "id='" + id + '\''
+                + ", production=" + production
                 + ", engine=" + engine
                 + ", bodyCar=" + bodyCar
                 + ", brand=" + brand
