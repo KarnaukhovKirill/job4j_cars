@@ -16,7 +16,7 @@ public class Advert {
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "USER_ID_FK"), nullable = false, updatable = false)
     private User user;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "car_vin", foreignKey = @ForeignKey(name = "CAR_VIN_FK"), nullable = false, updatable = false)
+    @JoinColumn(name = "car_id", foreignKey = @ForeignKey(name = "CAR_ID_FK"), nullable = false, updatable = false)
     private Car car;
     private String description;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -27,13 +27,13 @@ public class Advert {
     public Advert() {
     }
 
-    public static Advert of(User user, Car car, String description, Photo photo) {
+    public static Advert of(User user, Car car, String description) {
         Advert advert = new Advert();
         advert.setDate(new Date(System.currentTimeMillis()));
         advert.setUser(user);
         advert.setCar(car);
         advert.setDescription(description);
-        advert.setPhoto(photo);
+//        advert.setPhoto(photo);
         advert.setSold(false);
         return advert;
     }
