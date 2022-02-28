@@ -1,5 +1,5 @@
 # job4j_cars
-[![Build Status](https://app.travis-ci.com/KarnaukhovKirill/job4j_cars.svg?branch=main)](https://app.travis-ci.com/KarnaukhovKirill/todo)
+[![Build Status](https://app.travis-ci.com/KarnaukhovKirill/job4j_cars.svg?branch=main)](https://app.travis-ci.com/KarnaukhovKirill/job4j_cars)
 
 Проект в рамках обучения job4j.ru. 
 

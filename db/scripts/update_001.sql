@@ -15,7 +15,8 @@ create table engines(
 
 create table models (
     id serial primary key,
-    name varchar (150) not null
+    name varchar (150) not null,
+    brand_id int references brands(id)
 );
 
 create table brands (
@@ -57,3 +58,35 @@ create table adverts (
     photo_id references photos(id),
     sold boolean default false
 );
+
+insert into bodies (name) values ('Универсал');
+insert into bodies (name) values ('Седан');
+insert into bodies (name) values ('Купэ');
+insert into bodies (name) values ('Хетчбэк');
+insert into bodies (name) values ('Пикап');
+
+insert into brands (name) values ('Toyota');
+insert into brands (name) values ('Mitsubishi');
+insert into brands (name) values ('Renault');
+insert into brands (name) values ('BMW');
+
+insert into models (name, brand_id) values ('Corolla', 1);
+insert into models (name, brand_id) values ('Avensis', 1);
+insert into models (name, brand_id) values ('Chaser', 1);
+insert into models (name, brand_id) values ('Lancer', 2);
+insert into models (name, brand_id) values ('Logan', 3);
+insert into models (name, brand_id) values ('Sandero', 3);
+insert into models (name, brand_id) values ('Duster', 3);
+insert into models (name, brand_id) values ('M5', 4);
+
+insert into engines (name, power) values ('1.3', 88);
+insert into engines (name, power) values ('1.6', 123);
+insert into engines (name, power) values ('2.0', 150);
+insert into engines (name, power) values ('3.0', 215);
+
+
+
+
+
+
+

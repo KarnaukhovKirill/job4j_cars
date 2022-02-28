@@ -19,7 +19,7 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
 
-    <title>Объявления</title>
+    <title>Мои объявления</title>
 </head>
 
 <body>
@@ -27,42 +27,17 @@
     <div class="row">
         <div class = "card" style="width: 100%">
             <div class="card-header">
-                <b>Объявления</b>
+                <b>Мои объявления</b>
                 <div class="float-right">
                     <ul class="nav">
-                        <li class="nav-item"><a href="./myposts.html" class="nav-link" id="myposts">Мои объявления</a></li>
+                        <li class="nav-item"><a href="./index.html" class="nav-link" id="main">Главная</a></li>
                         <li class="nav-item"><a href="#" onclick="logOut();" class="nav-link" id="exit"></a></li>
                     </ul>
                 </div>
-            </div>
-                <button type="button" class="btn btn-primary btn-big mx-auto mb-2 mt-1"
-                        onclick="location.href = 'post.html'">Создать объявление</button>
-            <div class="form-row" style="margin-left: 100px; margin-right: 100px;">
-                <div class="col-md-4 mb-2">
-                    <label for="brand">Марка автомобиля</label>
-                    <select id="brand" class="form-control" onchange="loadModel();">
-                        <option selected>Не выбрано</option>
-                    </select>
-                </div>
-                <div class="col-md-4 mb-2">
-                    <label for="model">Модель автомобиля</label>
-                    <select id="model" class="form-control">
-                        <option selected>Не выбрано</option>
-                    </select>
-                </div>
-                <div class="col-md-4 mb-2">
-                    <label for="body">Кузов</label>
-                    <select id="body" class="form-control">
-                        <option selected>Не выбрано</option>
-                    </select>
-                </div>
 
-                <div class="col-md-4 mb-1 ">
-                    <input type="button" class="btn btn-success mt-2" value="Фильтровать" onclick="filterAdvert();">
-                    <input type="button" class="btn btn-success mt-2" value="Сбросить фильтр" onclick="resetFilter();">
-                </div>
-                </div>
             </div>
+            <button type="button" class="btn btn-primary btn-big mx-auto"
+                    onclick="location.href = 'post.html'">Создать объявление</button>
             <div class="card-body">
                 <table class="table" id="advertTable">
                     <thead>
@@ -75,15 +50,16 @@
                         <th scope="col">Год выпуска</th>
                         <th scope="col">Владелец</th>
                         <th scope="col">Описание</th>
+                        <th scope="col">Удалить</th>
                     </tr>
                     </thead>
-                    <tbody id="advertTableBody" class="advertTableBody">
+                    <tbody id="advertTableBody">
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-<script src="js/index.js"></script>
+<script src="js/myposts.js"></script>
 </body>
 </html>

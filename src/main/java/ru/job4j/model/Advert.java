@@ -33,7 +33,6 @@ public class Advert {
         advert.setUser(user);
         advert.setCar(car);
         advert.setDescription(description);
-//        advert.setPhoto(photo);
         advert.setSold(false);
         return advert;
     }
